@@ -1,0 +1,26 @@
+### 1. Öffentliche Test-API (JSONPlaceholder) - Todo lesen
+GET https://jsonplaceholder.typicode.com/todos/1
+Accept: application/json
+
+### 2. Öffentliche Test-API - Fehlerfall provozieren
+GET https://jsonplaceholder.typicode.com/ungueltig
+
+### ------------------------------------------------------------
+### Eigene Todo-API (für Aufgabe 04 & 05 unter localhost:8000)
+### ------------------------------------------------------------
+
+### Healthcheck
+GET http://localhost:8000/health
+
+### Alle Todos abrufen
+GET http://localhost:8000/todos
+
+### TODO: Einzelnes Todo abrufen (GET /todos/1)
+
+### TODO: POST /todos (gültiges Todo anlegen)
+
+### TODO: POST /todos (ungültiger Body -> 422 provozieren)
+
+### TODO: PATCH /todos/1 (completed auf true setzen)
+
+### TODO: DELETE /todos/1

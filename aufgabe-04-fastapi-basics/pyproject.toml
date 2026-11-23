@@ -1,0 +1,8 @@
+[project]
+name = "aufgabe-04-fastapi-basics"
+version = "0.1.0"
+description = "Minimaler FastAPI-Server zum Einstieg"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]",
+]

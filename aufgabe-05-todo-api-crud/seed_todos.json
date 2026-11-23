@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "API-Vertrag definieren",
+    "completed": true
+  },
+  {
+    "id": 2,
+    "title": "FastAPI Endpoints implementieren",
+    "completed": false
+  },
+  {
+    "id": 3,
+    "title": "Fehlerfälle 404 und 422 testen",
+    "completed": false
+  }
+]

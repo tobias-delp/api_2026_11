@@ -1,8 +1,0 @@
-[project]
-name = "aufgabe-05-todo-api-crud"
-version = "0.1.0"
-description = "Vollständige Todo CRUD API mit Pydantic-Validierung"
-requires-python = ">=3.12"
-dependencies = [
-    "fastapi[standard]",
-]

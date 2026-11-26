@@ -1,7 +1,10 @@
 from typing import Annotated
 from pydantic import BaseModel, ConfigDict, StringConstraints, StrictBool, model_validator
 
-Title = Annotated[str, StringConstraints(strict=True, min_length=1, max_length=200, pattern=r'\S')]
+Title = Annotated[
+    str,
+    StringConstraints(strict=True, min_length=1, max_length=200, pattern=r'\S')
+    ]
 
 class TodoReplace(BaseModel):
     model_config = ConfigDict(extra='forbid')

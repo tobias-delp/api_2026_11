@@ -14,6 +14,19 @@ uv run fastapi dev app/main.py
 
 Tests: `uv run pytest -v`. Im Starter schlagen Tests zukünftiger Aufgaben absichtlich fehl. Einzelne Aufgaben: `uv run pytest tests/test_03_read.py -v` usw.
 
+Browser-End-to-End-Tests (Manjaro mit systemweitem Chromium):
+
+```sh
+sudo pacman -S chromium  # nur falls Chromium noch fehlt
+uv sync
+uv run pytest tests/e2e -v
+```
+
+Die Tests starten und beenden den FastAPI-Server selbst. Ein separater
+Browserdownload mit `playwright install` ist nicht nötig. Falls Chromium an
+einem abweichenden Ort liegt, kann der Pfad mit
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/pfad/zu/chromium` gesetzt werden.
+
 Terminal optional: `curl -i http://localhost:8000/health` (Windows: `curl.exe -i http://localhost:8000/health`). PowerShell POST: `$body = @{title='Test'} | ConvertTo-Json` und `Invoke-WebRequest -Uri http://localhost:8000/todos -Method Post -ContentType application/json -Body $body`.
 
 

@@ -1,6 +1,69 @@
-<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Todo API</title><style>body{font:16px system-ui;max-width:720px;margin:48px auto;padding:20px;color:#20365a;background:#f5f7fa}main{background:white;padding:24px;border-radius:12px}li{display:flex;gap:12px;align-items:center;padding:12px;border-bottom:1px solid #ddd}li span{flex:1}button,input,select{font:inherit;padding:8px}#error{color:#a22}a{color:#245b91}</style><main><h1>Meine Todos</h1><p><a href="/docs">Swagger UI</a> · <a href="/openapi.json">OpenAPI</a></p><form id="form"><input id="title" required maxlength="200" placeholder="Neue Aufgabe"><button>Hinzufügen</button></form><p><select id="filter"><option value="">Alle</option><option value="false">Offen</option><option value="true">Erledigt</option></select></p><p id="error" role="status"></p><ul id="list"></ul></main><script>
-const $=id=>document.getElementById(id);async function api(path,method='GET',body){const r=await fetch(path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});if(!r.ok)throw Error(`${method} ${path}: HTTP ${r.status}`);return r.status===204?null:r.json()}
-async function action(fn){try{$('error').textContent='';await fn();await load()}catch(e){$('error').textContent=e.message+' – möglicherweise noch nicht implementiert.'}}
-async function load(){const f=$('filter').value;const todos=await api('/todos'+(f?'?completed='+f:''));$('list').replaceChildren();for(const t of todos){const li=document.createElement('li'),c=document.createElement('input'),s=document.createElement('span'),b=document.createElement('button'),edit=document.createElement('button');c.type='checkbox';c.checked=t.completed;c.onchange=()=>action(()=>api('/todos/'+t.id,'PATCH',{completed:c.checked}));s.textContent=t.title;b.textContent='Löschen';b.onclick=()=>action(()=>api('/todos/'+t.id,'DELETE'));edit.textContent='Bearbeiten';edit.onclick=()=>{const title=prompt('Titel',t.title);if(title!==null)action(()=>api('/todos/'+t.id,'PUT',{title,completed:t.completed}))};li.append(c,s,edit,b);$('list').append(li)}}
-$('form').onsubmit=e=>{e.preventDefault();action(async()=>{await api('/todos','POST',{title:$('title').value});$('title').value=''})};$('filter').onchange=()=>action(async()=>{});action(async()=>{});
-</script></html>
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Todo API</title>
+<style>
+    body {
+        font: 16px system-ui;
+        max-width: 720px;
+        margin: 48px auto;
+        padding: 20px;
+        color: #20365a;
+        background: #f5f7fa
+    }
+
+    main {
+        background: white;
+        padding: 24px;
+        border-radius: 12px
+    }
+
+    li {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #ddd
+    }
+
+    li span {
+        flex: 1
+    }
+
+    button,
+    input,
+    select {
+        font: inherit;
+        padding: 8px
+    }
+
+    #error {
+        color: #a22
+    }
+
+    a {
+        color: #245b91
+    }
+</style>
+<main>
+    <h1>Tobias' Todos</h1>
+    <p><a href="/docs">Swagger UI</a> · <a href="/openapi.json">OpenAPI</a></p>
+    <form id="form"><input id="title" required maxlength="200" placeholder="Neue Aufgabe"><button>Hinzufügen</button>
+    </form>
+    <p><select id="filter">
+            <option value="">Alle</option>
+            <option value="false">Offen</option>
+            <option value="true">Erledigt</option>
+        </select></p>
+    <p id="error" role="status"></p>
+    <ul id="list"></ul>
+</main>
+<script>
+    const $ = id => document.getElementById(id); async function api(path, method = 'GET', body) { const r = await fetch(path, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined }); if (!r.ok) throw Error(`${method} ${path}: HTTP ${r.status}`); return r.status === 204 ? null : r.json() }
+    async function action(fn) { try { $('error').textContent = ''; await fn(); await load() } catch (e) { $('error').textContent = e.message + ' – möglicherweise noch nicht implementiert.' } }
+    async function load() { const f = $('filter').value; const todos = await api('/todos' + (f ? '?completed=' + f : '')); $('list').replaceChildren(); for (const t of todos) { const li = document.createElement('li'), c = document.createElement('input'), s = document.createElement('span'), b = document.createElement('button'), edit = document.createElement('button'); c.type = 'checkbox'; c.checked = t.completed; c.onchange = () => action(() => api('/todos/' + t.id, 'PATCH', { completed: c.checked })); s.textContent = t.title; b.textContent = 'Löschen'; b.onclick = () => action(() => api('/todos/' + t.id, 'DELETE')); edit.textContent = 'Bearbeiten'; edit.onclick = () => { const title = prompt('Titel', t.title); if (title !== null) action(() => api('/todos/' + t.id, 'PUT', { title, completed: t.completed })) }; li.append(c, s, edit, b); $('list').append(li) } }
+    $('form').onsubmit = e => { e.preventDefault(); action(async () => { await api('/todos', 'POST', { title: $('title').value }); $('title').value = '' }) }; $('filter').onchange = () => action(async () => { }); action(async () => { });
+</script>
+
+</html>
